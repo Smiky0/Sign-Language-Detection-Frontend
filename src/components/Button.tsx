@@ -1,11 +1,12 @@
 import React from "react";
 
 interface ButtonProps {
-    label: string;
+    label?: string;
     onClick?: () => void;
     className?: string;
     style?: React.CSSProperties;
-    icon?: React.ReactNode; // Optional icon prop
+    icon?: React.ReactNode;
+    variant?: "solid" | "outline";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,26 +15,22 @@ const Button: React.FC<ButtonProps> = ({
     className = "",
     style = {},
     icon,
+    variant = "solid",
 }) => {
-    // Define base styles for the button
     const baseStyles = `
-		px-4 py-2 text-lg capitalize font-medium rounded-xl transition duration-400 ease-in-out opacity-100 scale-90 hover:scale-100
-		inline-flex items-center justify-center cursor-pointer`;
+        px-6 py-3 text-md sm:text-lg capitalize font-medium sm:font-bold rounded-xl transition duration-400 ease-in-out opacity-100 scale-100 hover:scale-95
+        inline-flex items-center justify-center cursor-pointer`;
 
-    // Combine all class names
-    const combinedClassName = `${baseStyles}  ${className}`.trim();
+    const solidStyles = "bg-black text-white";
+    const outlineStyles = "border border-black text-black bg-transparent p-2";
+
+    const combinedClassName = `${baseStyles} ${
+        variant === "outline" ? outlineStyles : solidStyles
+    } ${className}`.trim();
 
     return (
-        <button
-            className={combinedClassName}
-            onClick={onClick}
-            style={{
-                backgroundColor: "#eeeeee",
-                color: "#2c2c2c",
-                ...style,
-            }}
-        >
-            {icon && <span className="mr-2">{icon}</span>}
+        <button className={combinedClassName} onClick={onClick} style={style}>
+            {icon && <span className="scale-140 pr-3">{icon}</span>}
             {label}
         </button>
     );
