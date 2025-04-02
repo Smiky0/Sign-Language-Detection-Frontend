@@ -36,7 +36,7 @@ export default function Homepage() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                model: "llama2",
+                model: "llama3.2",
                 prompt: `You are an AI language expert who only sends corrected text with no extra words and specializes in fixing spelling and grammar mistakes.  Your task is to correct the given sentence while preserving its original intent.  Ensure all words are spelled correctly and the sentence is grammatically sound.  Do not add extra words or change the meaning beyond necessary corrections. Return only the corrected sentence, without explanations, without problematic sentence and without any other prompt.  Example Fixes:- Input: 'hell g hov are ygu' → Output: 'Hello, how are you?'- Input: 'Ths is a sentnce wth errrs.' → Output: 'This is a sentence with errors.'- Input: 'wht time is t?' → Output: 'What time is it?'Now, correct this sentence: ${showDetectedText}`,
                 stream: false,
             }),
