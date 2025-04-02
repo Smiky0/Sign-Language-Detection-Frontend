@@ -1,54 +1,88 @@
-# React + TypeScript + Vite
+# American Sign Language Detection System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This project is an **American Sign Language (ASL) Detection System** that leverages **MediaPipe** for hand detection, **Random Forest Classifier** for model training, and **OpenCV** for capturing live image frames. The frontend is built using **React.js with Vite** and styled with **Tailwind CSS**, while the backend uses **FastAPI** with **Starlette WebSocket** for real-time communication and **ONNX** for model inference.
 
-Currently, two official plugins are available:
+## Technologies Used
+### Backend:
+- **FastAPI** - Lightweight and fast backend framework for handling API requests.
+- **Starlette WebSocket** - Enables real-time communication between frontend and backend.
+- **ONNX** - Used for optimized model inference.
+- **MediaPipe** - Extracts hand landmarks for ASL detection.
+- **Random Forest Classifier** - Trained model for sign language recognition.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Frontend:
+- **React.js (Vite)** - Fast and efficient frontend framework.
+- **Tailwind CSS** - Used for styling the UI.
+- **WebSockets** - For real-time data exchange between frontend and backend.
 
-## Expanding the ESLint configuration
+### Other Tools:
+- **OpenCV** - Captures live frames from the webcam.
+- **NumPy & Pandas** - Data preprocessing and handling.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Installation & Setup
+### Prerequisites:
+- Python 3.8+
+- Node.js 16+
+- pip & virtual environment
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Backend Setup:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/asl-detection.git
+   cd asl-detection/backend
+   ```
+2. Create a virtual environment and activate it:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+ 
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Frontend Setup:
+1. Navigate to the frontend directory:
+   ```bash
+   cd ../frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Usage
+1. Start the backend server.
+2. Start the frontend application.
+3. Open the provided URL in a web browser.
+4. Allow webcam access for real-time ASL detection.
+5. Perform ASL gestures, and the system will recognize and display the corresponding text.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## Model Training
+1. Collect hand landmark data using MediaPipe.
+2. Preprocess data using Pandas and NumPy.
+3. Train the Random Forest Classifier.
+4. Convert the model to ONNX format for efficient inference.
+
+## Future Enhancements
+- Improve model accuracy with more training data.
+- Implement a deep learning model for better performance.
+- Add multilingual support for accessibility.
+- Deploy the system on the cloud for global access.
+
+## Contributing
+Feel free to fork the repository, create a feature branch, and submit a pull request with improvements.
+
+## License
+This project is open-source and available under the MIT License.
+
+---
+### Contact
+For queries or collaborations, contact [Soumik Ghosh, Nabajyoti Basak]
 ```
