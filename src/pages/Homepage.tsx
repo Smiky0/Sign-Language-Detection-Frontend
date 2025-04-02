@@ -28,6 +28,27 @@ export default function Homepage() {
         setDetectedText("");
     };
 
+    const handleAutoCorrect = async () => {
+        if (showDetectedText.trim().length === 0) return;
+        await fetch("https://llama.softvowels.com/api/generate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                model: "llama2",
+                prompt: `You are an AI language expert who only sends corrected text with no extra words and specializes in fixing spelling and grammar mistakes.  Your task is to correct the given sentence while preserving its original intent.  Ensure all words are spelled correctly and the sentence is grammatically sound.  Do not add extra words or change the meaning beyond necessary corrections. Return only the corrected sentence, without explanations, without problematic sentence and without any other prompt.  Example Fixes:- Input: 'hell g hov are ygu' → Output: 'Hello, how are you?'- Input: 'Ths is a sentnce wth errrs.' → Output: 'This is a sentence with errors.'- Input: 'wht time is t?' → Output: 'What time is it?'Now, correct this sentence: ${showDetectedText}`,
+                stream: false,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.response);
+                setDetectedText(data.response);
+            })
+            .catch((error) => console.error("Error:", error));
+    };
+
     return (
         <>
             <div className="flex flex-col lg:flex-row justify-center gap-0 md:gap-8 px-4 sm:px-10">
@@ -74,8 +95,13 @@ export default function Homepage() {
                     <div className="flex flex-col justify-center items-center m-2 gap-2">
                         <Button
                             label="auto Correct all"
-                            variant="solid"
+                            variant={
+                                showDetectedText.trim().length === 0
+                                    ? "disabled"
+                                    : "solid"
+                            }
                             icon={<TiTick />}
+                            onClick={handleAutoCorrect}
                         />
                         <div className="flex gap-2">
                             <Button

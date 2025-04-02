@@ -6,7 +6,7 @@ interface ButtonProps {
     className?: string;
     style?: React.CSSProperties;
     icon?: React.ReactNode;
-    variant?: "solid" | "outline";
+    variant?: "solid" | "outline" | "disabled";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,9 +23,15 @@ const Button: React.FC<ButtonProps> = ({
 
     const solidStyles = "bg-black text-white";
     const outlineStyles = "border border-black text-black bg-transparent p-2";
+    const disabled =
+        "bg-black/50 text-white cursor-not-allowed opacity-50 pointer-events-none";
 
     const combinedClassName = `${baseStyles} ${
-        variant === "outline" ? outlineStyles : solidStyles
+        variant === "outline"
+            ? outlineStyles
+            : variant === "disabled"
+            ? disabled
+            : solidStyles
     } ${className}`.trim();
 
     return (
